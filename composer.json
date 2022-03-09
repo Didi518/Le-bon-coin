@@ -1,0 +1,17 @@
+{
+    "name": "kevinouali/leboncoin",
+    "description": "Leboncoin",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [{
+        "name": "kevin",
+        "email": "kevin.ouali@gmail.com"
+    }],
+    "require": {
+        "symfony/var-dumper": "^6.0"
+    }
+}
