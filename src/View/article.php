@@ -25,7 +25,6 @@ $db->connect();
     <title>Détails</title>
 </head>
 <body>
-    <?php var_dump($articles); ?>
     <?php foreach ($articles as $article) : ?>
         <div class="container">
             <div class="imgBx"></div>
