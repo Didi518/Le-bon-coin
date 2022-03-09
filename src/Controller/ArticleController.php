@@ -40,7 +40,7 @@ class ArticleController extends AbstractController
             }
 
             // j'ajoute l'annonce dans ma liste
-            $article[$key]->annonce = $articles;
+            $article[$key]->article = $articles;
 
             // $lists[$key]->cards = array_filter($cards, function($card) use ($list_id) {
             //     return $card->getList_id() == $list_id;
