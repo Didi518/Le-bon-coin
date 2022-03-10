@@ -39,11 +39,13 @@ class BoardModel
     {
         $sql = 'SELECT
                 `id`
+                ,`category`
                 ,`name`
                 ,`quantity`
                 ,`price`
                 ,`description`
                 ,`date_de_parution`
+                ,`commentaire`
                 ,`img`
                 FROM ' . self::TABLE_NAME . '
                 ORDER BY `id` DESC;
@@ -58,11 +60,13 @@ class BoardModel
     {
         $sql = 'SELECT
                 `id`
+                ,`category`
                 ,`name`
                 ,`quantity`
                 ,`price`
                 ,`description`
                 ,`date_de_parution`
+                ,`commentaire`
                 ,`img`
                 FROM ' . self::TABLE_NAME . '
                 WHERE `id` = :id

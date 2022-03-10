@@ -1,17 +1,7 @@
 <?php
-namespace App;
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-require "vendor/autoload.php";
-
-# connection bdd
-use App\Database;
-
-$db = new Database();
-$db->connect();
-
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +13,9 @@ $db->connect();
     <link rel="stylesheet" href="assets/css/board.css">
     <title>Le Bon Coin</title>
 </head>
-<body>
+<body>  
     <?php foreach ($boards as $board): ?>
-    <<a href="?page=article&id=<?=$board-> getId()?>">
+    <a href="?page=article&id=<?=$board-> getId()?>">
         <div class="box">
             <div class="imgBx">
                 <img src="<?= $board->getImg(); ?>" alt="">
