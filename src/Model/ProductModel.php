@@ -5,29 +5,19 @@ namespace App\Model;
 use PDO;
 use App\database\Database;
 
-class BoardModel
+class ProductModel
 {
     protected $id;
-
-    protected $category;
-
     protected $name;
-
-    protected $quantity;
-
-    protected $price;
-
     protected $description;
-    
-    protected $date_de_parution;
-
-    protected $commentaire;
-
+    protected $price;
+    protected $date;
+    protected $type;
     protected $img;
-
+    protected $dpt;
     protected $pdo;
 
-    const TABLE_NAME = 'articles';
+    const TABLE_NAME = 'products';
 
     public function __construct()
     {
@@ -39,18 +29,16 @@ class BoardModel
     {
         $sql = 'SELECT
                 `id`
-                ,`category`
                 ,`name`
-                ,`quantity`
-                ,`price`
                 ,`description`
-                ,`date_de_parution`
-                ,`commentaire`
+                ,`price`
+                ,`date`
+                ,`type`
                 ,`img`
+                ,`dpt`
                 FROM ' . self::TABLE_NAME . '
                 ORDER BY `id` DESC;
         ';
-
         $pdoStatement = $this->pdo->query($sql);
         $result = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
         return $result;
@@ -60,18 +48,17 @@ class BoardModel
     {
         $sql = 'SELECT
                 `id`
-                ,`category`
                 ,`name`
-                ,`quantity`
-                ,`price`
                 ,`description`
-                ,`date_de_parution`
-                ,`commentaire`
+                ,`price`
+                ,`date`
+                ,`type`
                 ,`img`
+                ,`dpt`
                 FROM ' . self::TABLE_NAME . '
-                WHERE `id` = :id
-                ORDER BY `id` DESC;
-        ';
+                  WHERE `id` = :id
+                  ORDER BY `id` ASC;
+          ';
 
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
@@ -80,29 +67,30 @@ class BoardModel
         return $result;
     }
 
-    public function create($name)
+    public function create($name, $description, $price, $date, $type, $img, $dpt)
     {
         $sql = 'INSERT INTO ' . self::TABLE_NAME . '
-                (`name`)
-                VALUES
-                (:name)
+            (`name`, `description`, `price`, `date`, `type`, `img`, `dpt`) VALUES
+            (:name, :description, :price, :date, :type, :img, :dpt)
         ';
-
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->bindValue(':name', $name, PDO::PARAM_STR);
-        
+        $pdoStatement->bindValue(':description', $description, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':price', $price, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':date', $date->format('d-m-Y H:i:s'));
+        $pdoStatement->bindValue(':type', $type, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':img', $img, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':dpt', $dpt, PDO::PARAM_STR);
         $result = $pdoStatement->execute();
-        
         if (!$result) {
             return false;
         }
-
         return $this->pdo->lastInsertId();
     }
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -112,7 +100,7 @@ class BoardModel
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -122,7 +110,7 @@ class BoardModel
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -132,8 +120,8 @@ class BoardModel
      * Set the value of name
      *
      * @return  self
-     */ 
-    public function setName(String $name)
+     */
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -141,48 +129,8 @@ class BoardModel
     }
 
     /**
-     * Get the value of quantity
-     */ 
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * Set the value of quantity
-     *
-     * @return  self
-     */ 
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of price
-     */ 
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set the value of price
-     *
-     * @return  self
-     */ 
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
      * Get the value of description
-     */ 
+     */
     public function getDescription()
     {
         return $this->description;
@@ -192,7 +140,7 @@ class BoardModel
      * Set the value of description
      *
      * @return  self
-     */ 
+     */
     public function setDescription($description)
     {
         $this->description = $description;
@@ -201,28 +149,68 @@ class BoardModel
     }
 
     /**
-     * Get the value of date_de_parution
-     */ 
-    public function getDate_de_parution()
+     * Get the value of price
+     */
+    public function getPrice()
     {
-        return $this->date_de_parution;
+        return $this->price;
     }
 
     /**
-     * Set the value of date_de_parution
+     * Set the value of price
      *
      * @return  self
-     */ 
-    public function setDate_de_parution($date_de_parution)
+     */
+    public function setPrice($price)
     {
-        $this->date_de_parution = $date_de_parution;
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of date
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set the value of date
+     *
+     * @return  self
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @return  self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }
 
     /**
      * Get the value of img
-     */ 
+     */
     public function getImg()
     {
         return $this->img;
@@ -232,7 +220,7 @@ class BoardModel
      * Set the value of img
      *
      * @return  self
-     */ 
+     */
     public function setImg($img)
     {
         $this->img = $img;
@@ -241,41 +229,21 @@ class BoardModel
     }
 
     /**
-     * Get the value of commentaire
-     */ 
-    public function getCommentaire()
+     * Get the value of dpt
+     */
+    public function getDpt()
     {
-        return $this->commentaire;
+        return $this->dpt;
     }
 
     /**
-     * Set the value of commentaire
+     * Set the value of dpt
      *
      * @return  self
-     */ 
-    public function setCommentaire($commentaire)
+     */
+    public function setDpt($dpt)
     {
-        $this->commentaire = $commentaire;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of category
-     */ 
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set the value of category
-     *
-     * @return  self
-     */ 
-    public function setCategory($category)
-    {
-        $this->category = $category;
+        $this->dpt = $dpt;
 
         return $this;
     }

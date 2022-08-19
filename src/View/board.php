@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,18 +14,20 @@ error_reporting(E_ALL);
     <link rel="stylesheet" href="assets/css/board.css">
     <title>Le Bon Coin</title>
 </head>
-<body>  
-    <?php foreach ($boards as $board): ?>
-    <a href="?page=article&id=<?=$board-> getId()?>">
-        <div class="box">
-            <div class="imgBx">
-                <img src="<?= $board->getImg(); ?>" alt="">
+
+<body>
+    <?php foreach ($products as $product) : ?>
+        <a href="?page=article&id=<?= $product->getId() ?>">
+            <div class="box">
+                <div class="imgBx">
+                    <img src="<?= $product->getImg(); ?>" alt="">
+                </div>
+                <div class="content">
+                    <h2><?= $product->getName(); ?><br><span><?= $product->getDescription(); ?></span></h2>
+                </div>
             </div>
-            <div class="content">
-                <h2><?= $board->getName(); ?><br><span><?= $board->getDescription(); ?></span></h2>
-            </div>
-        </div>
-    </a>
+        </a>
     <?php endforeach; ?>
 </body>
+
 </html>

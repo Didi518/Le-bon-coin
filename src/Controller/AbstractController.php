@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Controller\InterfaceController;
-
-abstract class AbstractController implements InterfaceController
+abstract class AbstractController
 {
     public function render($view_path, $data = [])
     {
