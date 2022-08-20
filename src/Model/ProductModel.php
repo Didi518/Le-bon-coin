@@ -67,25 +67,29 @@ class ProductModel
         return $result;
     }
 
-    public function create($name, $description, $price, $date, $type, $img, $dpt)
+    public function create($name, $description, $price, $type, $img, $dpt)
     {
-        $sql = 'INSERT INTO ' . self::TABLE_NAME . '
-            (`name`, `description`, `price`, `date`, `type`, `img`, `dpt`) VALUES
-            (:name, :description, :price, :date, :type, :img, :dpt)
-        ';
+        $sql = "INSERT INTO " . self::TABLE_NAME . "
+                (`name`, `description`, `price`, `type`, `img`, `dpt` )
+                VALUES ('$name', '$description', '$price','$type','$img', '$dpt')";
+
         $pdoStatement = $this->pdo->prepare($sql);
-        $pdoStatement->bindValue(':name', $name, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':description', $description, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':price', $price, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':date', $date->format('d-m-Y H:i:s'));
-        $pdoStatement->bindValue(':type', $type, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':img', $img, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':dpt', $dpt, PDO::PARAM_STR);
+
         $result = $pdoStatement->execute();
+
+
+
         if (!$result) {
             return false;
         }
-        return $this->pdo->lastInsertId();
+    }
+
+    public function delete($id)
+    {
+        $sql = 'DELETE FROM ' . self::TABLE_NAME . 'WHERE id = :id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
     }
 
     /**

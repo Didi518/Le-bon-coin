@@ -8,7 +8,7 @@ use App\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-    public function article()
+    public function index()
     {
         $articleModel = new ProductModel;
 

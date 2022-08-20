@@ -9,33 +9,29 @@ require 'vendor/autoload.php';
 class Application
 {
     const AUTHORIZED_PAGES = [
-        'board' => [
-            'controller' => 'BoardController',
+        'products' => [
+            'controller' => 'ProductController',
             'method' => 'index'
         ],
-        'article'=> [
+        'article' => [
             'controller' => 'ArticleController',
-            'method' => 'article'
+            'method' => 'index'
+        ],
+        'admin' => [
+            'controller' => 'AdminController',
+            'method' => 'index'
+        ],
+        'nouveau' => [
+            'controller' => 'ProductController',
+            'method' => 'create'
         ],
         'error404' => [
             'controller' => 'ErrorController',
             'method' => 'error404'
-        ],
-        'createCard' => [
-            'controller' => 'CardController',
-            'method' => 'create'
-        ],
-        'createList' => [
-            'controller' => 'BoardController',
-            'method' => 'create'
-        ],
-        'createBoard' => [
-            'controller' => 'BoardController',
-            'method' => 'create',
         ]
     ];
 
-    const DEFAULT_ROUTE = 'board';
+    const DEFAULT_ROUTE = 'products';
 
     private function match($route_name)
     {
@@ -67,10 +63,8 @@ class Application
         // j'appelle la méthode correspondante à la route demandée
         $method_name = $route['method'];
         $controller->$method_name();
-
     }
 }
 
 $application = new Application();
 $application->run();
-

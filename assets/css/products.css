@@ -8,17 +8,11 @@
 
 body {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   min-height: 100vh;
   background: #010615;
-}
-
-h1 {
-  color: #fff;
-  text-align: center;
 }
 
 a .box {
