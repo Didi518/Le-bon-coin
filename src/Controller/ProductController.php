@@ -21,10 +21,10 @@ class ProductController extends AbstractController
     public function findOne($id)
     {
         $id = $_GET["id"];
-        $one = new  ProductModel();
-        $article = $one->findById($id);
+        $products = new  ProductModel();
+        $product = $products->findById($id);
         $this->render('article.php', [
-            'article' => $article,
+            'product' => $product,
         ]);
     }
 
@@ -39,7 +39,7 @@ class ProductController extends AbstractController
 
         $create = new ProductModel();
         $create->create($name, $description, $price, $type, $img, $dpt);
-        header('Location: ?page=nouveau');
+        header('Location: ?page=products');
     }
 
     public function delete()

@@ -6,7 +6,7 @@ use PDOException;
 use PDO;
 
 class Database
-{   
+{
     private $config;
     private $pdo;
 
@@ -38,7 +38,7 @@ class Database
      */
     private function connect()
     {
-        $dbh ='';
+        $dbh = '';
         // Connexion a la base de données 
         try {
             $dbh = new PDO('mysql:host=' . $this->config["DB_HOST"] . ';dbname=' . $this->config["DB_NAME"], $this->config["DB_USERNAME"], $this->config["DB_PASSWORD"]);
@@ -48,7 +48,8 @@ class Database
         }
         $this->pdo = $dbh;
     }
-    public function getPDO(){
+    public function getPDO()
+    {
         return $this->pdo;
     }
 }

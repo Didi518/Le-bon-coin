@@ -13,38 +13,38 @@ class AdminController extends AbstractController
         $productModel = new ProductModel();
         $id = $productModel->getId();
         $products = $productModel->findAll();
-
-
         $this->render('admin.php', [
             'products' => $products,
             'id' => $id
-
         ]);
     }
 
     public function findOne()
     {
         $id = $_GET['id'];
-        $product = new ProductModel();
-        $article = $product->findById($id);
+        $products = new ProductModel();
+        $product = $products->findById($id);
 
         $this->render('article.php', [
-            'article' => $article
+            'product' => $product
         ]);
     }
 
     public function create()
     {
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $type = $_POST['type'];
-        $img = $_POST['img'];
-        $dpt = $_POST['dpt'];
-
-        $create = new ProductModel();
-        $create->create($name, $description, $price, $type, $img, $dpt);
-        header('Location: ?page=nouveau');
+        if (isset($_POST['name'])) {
+            $name = trim($_POST['name']);
+            $description = trim($_POST['description']);
+            $price = trim($_POST['price']);
+            $type = trim($_POST['type']);
+            $img = trim($_POST['img']);
+            $dpt = trim($_POST['dpt']);
+        }
+        if (!empty($name) && !empty($description) && !empty($price) && !empty($type) && !empty($img) && !empty($dpt)) {
+            $create = new ProductModel();
+            $create = $create->create($name, $description, $price, $type, $img, $dpt);
+        }
+        header('Location: ?page=admin');
     }
 
     public function delete()
@@ -52,6 +52,10 @@ class AdminController extends AbstractController
         $id = $_GET["id"];
         $delete = new ProductModel();
         $delete->delete($id);
-        header('Location: ?page=products');
+        header('Location: ?page=admin');
+    }
+
+    public function edit($id)
+    {
     }
 }

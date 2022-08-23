@@ -1,5 +1,7 @@
 <?php
 
+use App\Controller\AdminController;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -21,9 +23,17 @@ class Application
             'controller' => 'AdminController',
             'method' => 'index'
         ],
-        'nouveau' => [
-            'controller' => 'ProductController',
+        'adminCreate' => [
+            'controller' => 'AdminController',
             'method' => 'create'
+        ],
+        'adminDelete' => [
+            'controller' => 'AdminController',
+            'method' => 'delete'
+        ],
+        'adminUpdate' => [
+            'controller' => 'AdminController',
+            'method' => 'update'
         ],
         'error404' => [
             'controller' => 'ErrorController',

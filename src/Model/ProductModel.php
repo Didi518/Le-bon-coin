@@ -17,7 +17,7 @@ class ProductModel
     protected $dpt;
     protected $pdo;
 
-    const TABLE_NAME = 'products';
+    const TABLE_NAME = 'Products';
 
     public function __construct()
     {
@@ -86,10 +86,26 @@ class ProductModel
 
     public function delete($id)
     {
-        $sql = 'DELETE FROM ' . self::TABLE_NAME . 'WHERE id = :id';
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
+        $sql = "DELETE FROM Products WHERE id = $id";
+
+        $pdoStatement = $this->pdo->prepare($sql);
+        $result = $pdoStatement->execute();
+        return $result;
+    }
+
+    public function update($name, $description, $price, $type, $img, $dpt)
+    {
+        $sql = "UPDATE " . self::TABLE_NAME . "
+                (`name`, `description`, `price`, `type`, `img`, `dpt` )
+                VALUES ('$name', '$description', '$price','$type','$img', '$dpt')";
+
+        $pdoStatement = $this->pdo->prepare($sql);
+
+        $result = $pdoStatement->execute();
+
+        if (!$result) {
+            return false;
+        }
     }
 
     /**
